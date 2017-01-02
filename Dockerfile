@@ -71,7 +71,8 @@ RUN service mysql restart && \
 		./occ config:system:set trusted_domains 4 --value=demo.cloud.wtf && \
 		chown -R www-data /var/www && \
 		rm -rf /var/www/html/apps/files_external && \
-		rm -rf /var/www/html/apps/templateeditor
+		rm -rf /var/www/html/apps/templateeditor && \
+		rm -rf /var/www/html/apps/survey_client
 EXPOSE 80
 EXPOSE 443
 ENTRYPOINT curl -L https://demo.nextcloud.com/startup.sh | bash && \
