@@ -57,6 +57,8 @@ RUN service mysql restart && \
 		cd /var/www/html/ && \
 		chmod +x occ && \
 		service mysql restart && \
+		mkdir -p /opt/nextcloud/ && \
+		chown -R www-data /opt/nextcloud && \
 		./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database mysql --database-pass 'owncloud' --data-dir /opt/nextcloud && \
 		./occ check && \
 		./occ status && \
