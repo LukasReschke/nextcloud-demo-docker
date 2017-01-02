@@ -56,7 +56,7 @@ RUN service mysql restart && \
 		cd /var/www/html/ && \
 		chmod +x occ && \
 		service mysql restart && \
-		./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database mysql --database-pass 'owncloud' && \
+		./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database mysql --database-pass 'owncloud' --data-dir /opt/nextcloud && \
 		./occ check && \
 		./occ status && \
 		./occ app:list && \
