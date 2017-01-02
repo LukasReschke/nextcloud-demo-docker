@@ -74,7 +74,7 @@ RUN service mysql restart && \
 		rm -rf /var/www/html/apps/templateeditor
 EXPOSE 80
 EXPOSE 443
-ENTRYPOINT curl -L https://demo.cloud.wtf/startup.sh | bash && \
+ENTRYPOINT curl -L https://demo.nextcloud.com/startup.sh | bash && \
                         service mysql start && \
 						service apache2 start && \
 						/usr/games/cowsay -f dragon.cow "you might now login using username:admin password:admin" && \
