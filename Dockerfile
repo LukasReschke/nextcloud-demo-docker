@@ -71,6 +71,8 @@ RUN service mysql restart && \
 		./occ config:system:set trusted_domains 3 --value=demo.nextcloud.com && \
 		./occ config:system:set trusted_domains 4 --value=demo.cloud.wtf && \
 		./occ config:app:set --value="https://demo.nextcloud.com:9980" richdocuments wopi_url && \
+		./occ config:system:set htaccess.RewriteBase --value="/" && \
+		./occ maintenance:update:htaccess && \
 		cd /var/www/html/apps/ && wget https://github.com/nextcloud/richdocuments/releases/download/1.1.25/richdocuments.tar.gz && tar -xf richdocuments.tar.gz && \
 		rm -rf /var/www/html/apps/files_external && \
 		rm -rf /var/www/html/apps/templateeditor && \
@@ -79,6 +81,9 @@ RUN service mysql restart && \
 		/var/www/html/occ config:system:set --value "\OC\Memcache\APCu" memcache.local && \
 		chown -R www-data /var/www && \
 		a2enmod headers && \
+		a2enmod rewrite && \
+		cat /etc/apache2/apache2.conf |awk '/<Directory \/var\/www\/>/,/AllowOverride None/{sub("None", "All",$0)}{print}' > /tmp/apache2.conf && \
+		mv /tmp/apache2.conf /etc/apache2/apache2.conf && \
 		sed -i '/SSLEngine on/a Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"' /etc/apache2/sites-enabled/default-ssl.conf
 EXPOSE 80
 EXPOSE 443
