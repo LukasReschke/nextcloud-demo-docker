@@ -71,7 +71,7 @@ RUN service mysql restart && \
 		./occ config:system:set trusted_domains 3 --value=demo.nextcloud.com && \
 		./occ config:system:set trusted_domains 4 --value=demo.cloud.wtf && \
 		./occ config:app:set --value="https://demo.nextcloud.com:9980" richdocuments wopi_url && \
-		cd /var/www/html/apps/ && wget https://github.com/nextcloud/richdocuments/releases/download/1.1.24/richdocuments.tar.gz && tar -xf richdocuments.tar.gz && \
+		cd /var/www/html/apps/ && wget https://github.com/nextcloud/richdocuments/releases/download/1.1.25/richdocuments.tar.gz && tar -xf richdocuments.tar.gz && \
 		rm -rf /var/www/html/apps/files_external && \
 		rm -rf /var/www/html/apps/templateeditor && \
 		rm -rf /var/www/html/apps/survey_client && \
