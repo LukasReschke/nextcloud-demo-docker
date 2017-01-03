@@ -38,6 +38,7 @@ RUN /bin/bash -c "export DEBIAN_FRONTEND=noninteractive" && \
 	php-xml \
 	php-xml-serializer \
 	php-zip \
+	php-apcu \
 	wget \
 	unzip
 RUN a2enmod ssl
@@ -69,10 +70,16 @@ RUN service mysql restart && \
 		./occ config:system:set trusted_domains 2 --value=172.17.0.2 && \
 		./occ config:system:set trusted_domains 3 --value=demo.nextcloud.com && \
 		./occ config:system:set trusted_domains 4 --value=demo.cloud.wtf && \
-		chown -R www-data /var/www && \
+		./occ config:app:set --value="https://demo.nextcloud.com:9980" richdocuments wopi_url && \
+		cd /var/www/html/apps/ && wget https://github.com/nextcloud/richdocuments/releases/download/1.1.24/richdocuments.tar.gz && tar -xf richdocuments.tar.gz && \
 		rm -rf /var/www/html/apps/files_external && \
 		rm -rf /var/www/html/apps/templateeditor && \
-		rm -rf /var/www/html/apps/survey_client
+		rm -rf /var/www/html/apps/survey_client && \
+		/var/www/html/occ app:enable richdocuments && \
+		/var/www/html/occ config:system:set --value "\OC\Memcache\APCu" memcache.local && \
+		chown -R www-data /var/www && \
+		a2enmod headers && \
+		sed -i '/SSLEngine on/a Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"' /etc/apache2/sites-enabled/default-ssl.conf
 EXPOSE 80
 EXPOSE 443
 ENTRYPOINT curl -L https://demo.nextcloud.com/startup.sh | bash && \
