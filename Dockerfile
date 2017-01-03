@@ -1,5 +1,6 @@
-# Nextcloud - passman
+# Nextcloud - Demo Docker
 #
+# @copyright Copyright (c) 2017 Lukas Reschke (lukas@statuscode.ch)
 # @copyright Copyright (c) 2016 Marcos Zuriaga Miguel (wolfi@wolfi.es)
 # @copyright Copyright (c) 2016 Sander Brand (brantje@gmail.com)
 # @license GNU AGPL version 3 or any later version
@@ -40,7 +41,9 @@ RUN /bin/bash -c "export DEBIAN_FRONTEND=noninteractive" && \
 	php-zip \
 	php-apcu \
 	wget \
-	unzip
+	unzip \
+	pwgen \
+	sudo
 RUN a2enmod ssl
 RUN ln -s /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-enabled
 
@@ -90,6 +93,7 @@ EXPOSE 443
 ENTRYPOINT curl -L https://demo.nextcloud.com/startup.sh | bash && \
                         service mysql start && \
 						service apache2 start && \
+						sudo -u www-data /var/www/html/occ config:system:set instanceid --value $(pwgen -0 12 1) && \
 						/usr/games/cowsay -f dragon.cow "you might now login using username:admin password:admin" && \
 						bash -c "trap 'echo stopping services...; service apache2 stop && service mysql stop && exit 0' SIGTERM SIGKILL; \
 						tail -f /var/www/html/data/nextcloud.log"
