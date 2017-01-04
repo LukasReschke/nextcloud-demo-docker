@@ -40,6 +40,7 @@ RUN /bin/bash -c "export DEBIAN_FRONTEND=noninteractive" && \
 	php-xml-serializer \
 	php-zip \
 	php-apcu \
+	php-ldap \
 	wget \
 	unzip \
 	pwgen \
