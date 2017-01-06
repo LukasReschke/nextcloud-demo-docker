@@ -53,7 +53,7 @@ RUN service mysql restart && \
 		echo "echo hhvm" > /bin/phpenv && chmod +x /bin/phpenv && \
 		cd /var/www/html && \
 		mysql -e 'create database oc_autotest;' && \
-		mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY 'owncloud'" && \
+		mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY 'm464P455w0rd'" && \
 		mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost'" && \
 		mysql -e "SELECT User FROM mysql.user;" && \
 		cd /root/ && wget https://download.nextcloud.com/server/releases/nextcloud-11.0.0.zip && unzip /root/nextcloud-11.0.0.zip && \
@@ -64,7 +64,7 @@ RUN service mysql restart && \
 		service mysql restart && \
 		mkdir -p /opt/nextcloud/ && \
 		chown -R www-data /opt/nextcloud && \
-		./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database mysql --database-pass 'owncloud' --data-dir /opt/nextcloud && \
+		./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database mysql --database-pass 'm464P455w0rd' --data-dir /opt/nextcloud && \
 		chown -R www-data /opt/nextcloud && \
 		./occ check && \
 		./occ status && \
