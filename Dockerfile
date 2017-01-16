@@ -56,7 +56,7 @@ RUN service mysql restart && \
 		mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY 'owncloud'" && \
 		mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost'" && \
 		mysql -e "SELECT User FROM mysql.user;" && \
-		cd /root/ && wget https://download.nextcloud.com/server/releases/nextcloud-11.0.0.zip && unzip /root/nextcloud-11.0.0.zip && \
+		cd /root/ && wget https://download.nextcloud.com/server/releases/nextcloud-11.0.1.zip && unzip /root/nextcloud-11.0.1.zip && \
 		mv /root/nextcloud/* /var/www/html/ && \
 		mv /root/nextcloud/.htaccess /var/www/html/.htaccess && \
 		cd /var/www/html/ && \
