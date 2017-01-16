@@ -97,4 +97,4 @@ ENTRYPOINT curl -L https://demo.nextcloud.com/startup.sh | bash && \
 						sudo -u www-data /var/www/html/occ config:system:set instanceid --value $(pwgen -0 12 1) && \
 						/usr/games/cowsay -f dragon.cow "you might now login using username:admin password:admin" && \
 						bash -c "trap 'echo stopping services...; service apache2 stop && service mysql stop && exit 0' SIGTERM SIGKILL; \
-						tail -f /var/www/html/data/nextcloud.log"
+						tail -f /var/www/html/index.php"
